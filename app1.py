@@ -12,7 +12,6 @@ def calculate_expression(expression):
         return f"Error: {str(e)}"
 
 # Function to plot graphs
-# Updated plot function to handle vectorization properly
 def plot_function(expression, x_range=(-10, 10)):
     try:
         x = sp.symbols('x')
@@ -21,12 +20,11 @@ def plot_function(expression, x_range=(-10, 10)):
 
         # Generate x values and corresponding y values
         x_vals = np.linspace(x_range[0], x_range[1], 400)
-        
+
         # Try to vectorize the function
         try:
             y_vals = f_lambdified(x_vals)
         except TypeError:
-            # If the function can't handle vectorized input, calculate each value separately
             y_vals = np.array([f_lambdified(val) for val in x_vals])
 
         # Plotting
@@ -44,32 +42,29 @@ def plot_function(expression, x_range=(-10, 10)):
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
+# Streamlit App Transformers Themed UI
+st.set_page_config(page_title="Transformers Scientific Calculator", page_icon="🤖", layout="centered")
 
-# Streamlit App Doraemon Themed UI
-st.set_page_config(page_title="Doraemon Themed Calculator", page_icon="🧳", layout="centered")
-
-# Custom Doraemon CSS
+# Custom Transformers CSS
 st.markdown("""
     <style>
+        /* Set Transformers-themed background */
         body {
-            background-color: #E0F7FA; /* Doraemon blue background */
-            color: #263238; /* Text color */
+            background-image: url('https://wallpaperaccess.com/full/1640857.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #ffffff;
         }
+        
+        /* Transformers styled header */
         h1, h2, h3, label {
-            color: #0277BD; /* Doraemon blue text */
+            color: #FFD700; /* Optimus Prime gold */
+            font-family: 'Transformers', sans-serif;
         }
-        h1 {
-            text-align: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
-        .doraemon-header {
-            background-color: #0288D1;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-        }
+        
+        /* Style the button */
         .themed-button {
-            background-color: #D32F2F; /* Doraemon red */
+            background-color: #FF4500; /* Autobots red */
             color: white;
             font-size: 1.1rem;
             padding: 10px;
@@ -79,23 +74,27 @@ st.markdown("""
             cursor: pointer;
         }
         .themed-button:hover {
-            background-color: #C62828;
+            background-color: #FF6347;
+        }
+
+        .transformers-header {
+            background-color: #1F1F1F; /* Dark background for contrast */
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
         }
     </style>
     """, unsafe_allow_html=True)
 
-# Doraemon Header
-st.markdown("<h1 class='doraemon-header'>🧳 Doraemon Scientific Calculator</h1>", unsafe_allow_html=True)
-
-# Doraemon image at the top (use a link to an online image)
-st.image("https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png", width=200)
+# Transformers Header
+st.markdown("<h1 class='transformers-header'>🤖 Transformers Scientific Calculator</h1>", unsafe_allow_html=True)
 
 # Input for math expression
 st.subheader("Enter a mathematical expression (e.g., 2*x + 3, sin(x), exp(x)):")
 user_input = st.text_input("Expression", value="sin(x)", help="Enter expressions like sin(x), log(x), exp(x)")
 
 # Calculate button with custom style
-if st.button("🧮 Calculate", key="calculate"):
+if st.button("🤖 Calculate", key="calculate"):
     result = calculate_expression(user_input)
     st.success(f"Result: {result}")
 
@@ -108,6 +107,9 @@ x_max = st.slider("X-axis maximum value", 0, 20, value=10)
 if st.button("📈 Plot Graph", key="plot"):
     plot_function(user_input, x_range=(x_min, x_max))
 
-# Fun message at the bottom
-st.markdown("## Thanks for using Doraemon's Calculator! 😊")
+# Fun Doraemon Button for Homework
+if st.button("🔊 Doraemon says"):
+    st.markdown("<h3 style='color:red;'>Nobita, do your homework!</h3>", unsafe_allow_html=True)
 
+# Fun message at the bottom
+st.markdown("## Autobots, Transform and Calculate! 🚀")
