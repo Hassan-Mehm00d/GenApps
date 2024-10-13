@@ -3,16 +3,15 @@ import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
 
-# Define a function to perform calculations
+# Function to perform calculations
 def calculate_expression(expression):
     try:
-        # Evaluate the expression
         result = sp.sympify(expression)
         return result
     except Exception as e:
         return f"Error: {str(e)}"
 
-# Define a function to plot graphs
+# Function to plot graphs
 def plot_function(expression, x_range=(-10, 10)):
     try:
         x = sp.symbols('x')
@@ -23,10 +22,10 @@ def plot_function(expression, x_range=(-10, 10)):
         x_vals = np.linspace(x_range[0], x_range[1], 400)
         y_vals = f_lambdified(x_vals)
 
-        # Plotting the function
+        # Plotting
         plt.figure(figsize=(6, 4))
         plt.plot(x_vals, y_vals, label=f'y = {expression}', color='blue', linewidth=2)
-        plt.title(f'Graph of {expression}', fontsize=16, color='darkblue')
+        plt.title(f'Graph of {expression}', fontsize=16, color='red')
         plt.xlabel('x', fontsize=12)
         plt.ylabel('y', fontsize=12)
         plt.axhline(0, color='black',linewidth=0.5)
@@ -38,61 +37,69 @@ def plot_function(expression, x_range=(-10, 10)):
     except Exception as e:
         st.error(f"Error: {str(e)}")
 
-# Streamlit App UI with Modern Layout
-st.set_page_config(page_title="Modern Scientific Calculator", page_icon="🔢", layout="centered")
+# Streamlit App Doraemon Themed UI
+st.set_page_config(page_title="Doraemon Themed Calculator", page_icon="🧳", layout="centered")
 
-# Custom CSS for styling
+# Custom Doraemon CSS
 st.markdown("""
     <style>
-        .main {
-            background-color: #f0f2f6;
-            padding: 10px;
+        body {
+            background-color: #E0F7FA; /* Doraemon blue background */
+            color: #263238; /* Text color */
+        }
+        h1, h2, h3, label {
+            color: #0277BD; /* Doraemon blue text */
         }
         h1 {
-            color: orange;
             text-align: center;
-            font-size: 3rem;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
-        label {
+        .doraemon-header {
+            background-color: #0288D1;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .themed-button {
+            background-color: #D32F2F; /* Doraemon red */
+            color: white;
             font-size: 1.1rem;
-            color: darkblue;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
         }
-        footer {visibility: hidden;}
+        .themed-button:hover {
+            background-color: #C62828;
+        }
     </style>
     """, unsafe_allow_html=True)
 
-# Title
-st.title("🔢 Modern Scientific Calculator")
+# Doraemon Header
+st.markdown("<h1 class='doraemon-header'>🧳 Doraemon Scientific Calculator</h1>", unsafe_allow_html=True)
 
-# Input section
-st.subheader("Enter a mathematical expression (e.g., 2*x + 3, sin(x), exp(x))")
+# Doraemon image at the top (use a link to an online image)
+st.image("https://upload.wikimedia.org/wikipedia/en/b/bd/Doraemon_character.png", width=200)
 
-# User input for mathematical expression
-user_input = st.text_input("Expression", value="sin(x)", help="You can enter expressions like sin(x), log(x), exp(x), etc.")
+# Input for math expression
+st.subheader("Enter a mathematical expression (e.g., 2*x + 3, sin(x), exp(x)):")
+user_input = st.text_input("Expression", value="sin(x)", help="Enter expressions like sin(x), log(x), exp(x)")
 
-# Dropdown to select popular functions
-st.subheader("Choose common functions:")
-function_choice = st.selectbox("Choose a function", ["None", "sin(x)", "cos(x)", "tan(x)", "log(x)", "exp(x)"])
-if function_choice != "None":
-    user_input = function_choice
-
-# Calculate result
-if st.button("Calculate"):
+# Calculate button with custom style
+if st.button("🧮 Calculate", key="calculate"):
     result = calculate_expression(user_input)
     st.success(f"Result: {result}")
 
-# Graph section
-st.subheader("Plot the graph of the function")
-
-# Range for X-axis using sliders
+# Graph section with dynamic sliders
+st.subheader("Plot the graph of the function:")
 x_min = st.slider("X-axis minimum value", -20, 0, value=-10)
 x_max = st.slider("X-axis maximum value", 0, 20, value=10)
 
-# Plot the graph dynamically
-if st.button("Plot Graph"):
+# Plot graph button
+if st.button("📈 Plot Graph", key="plot"):
     plot_function(user_input, x_range=(x_min, x_max))
 
-# Add an extra visual element
-st.markdown("## 🎨 Modern Look for Interactive Calculator")
-st.info("This calculator supports complex math expressions with dynamic graph plotting for visual analysis!")
+# Fun message at the bottom
+st.markdown("## Thanks for using Doraemon's Calculator! 😊")
 
