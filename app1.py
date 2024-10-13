@@ -12,6 +12,7 @@ def calculate_expression(expression):
         return f"Error: {str(e)}"
 
 # Function to plot graphs
+# Updated plot function to handle vectorization properly
 def plot_function(expression, x_range=(-10, 10)):
     try:
         x = sp.symbols('x')
@@ -20,7 +21,13 @@ def plot_function(expression, x_range=(-10, 10)):
 
         # Generate x values and corresponding y values
         x_vals = np.linspace(x_range[0], x_range[1], 400)
-        y_vals = f_lambdified(x_vals)
+        
+        # Try to vectorize the function
+        try:
+            y_vals = f_lambdified(x_vals)
+        except TypeError:
+            # If the function can't handle vectorized input, calculate each value separately
+            y_vals = np.array([f_lambdified(val) for val in x_vals])
 
         # Plotting
         plt.figure(figsize=(6, 4))
@@ -36,6 +43,7 @@ def plot_function(expression, x_range=(-10, 10)):
         plt.close()
     except Exception as e:
         st.error(f"Error: {str(e)}")
+
 
 # Streamlit App Doraemon Themed UI
 st.set_page_config(page_title="Doraemon Themed Calculator", page_icon="🧳", layout="centered")
