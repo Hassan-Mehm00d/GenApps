@@ -45,44 +45,42 @@ def plot_function(expression, x_range=(-10, 10)):
 # Streamlit App Transformers Themed UI
 st.set_page_config(page_title="Transformers Scientific Calculator", page_icon="🤖", layout="centered")
 
-# Custom Transformers CSS
+# Custom Transformers CSS with Background Image
 st.markdown("""
     <style>
-        /* Set Transformers-themed background */
-        body {
-            background-image: url('https://wallpaperaccess.com/full/1640857.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            color: #ffffff;
-        }
-        
-        /* Transformers styled header */
-        h1, h2, h3, label {
-            color: #FFD700; /* Optimus Prime gold */
-            font-family: 'Transformers', sans-serif;
-        }
-        
-        /* Style the button */
-        .themed-button {
-            background-color: #FF4500; /* Autobots red */
-            color: white;
-            font-size: 1.1rem;
-            padding: 10px;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .themed-button:hover {
-            background-color: #FF6347;
-        }
+    body {
+        background-image: url("https://wallpaperaccess.com/full/1640857.jpg");
+        background-size: cover;
+        background-position: center;
+    }
+    
+    /* Transformers styled header */
+    h1, h2, h3, label {
+        color: #FFD700; /* Optimus Prime gold */
+        font-family: 'Arial', sans-serif;
+    }
+    
+    /* Style the button */
+    .themed-button {
+        background-color: #FF4500; /* Autobots red */
+        color: white;
+        font-size: 1.1rem;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    .themed-button:hover {
+        background-color: #FF6347;
+    }
 
-        .transformers-header {
-            background-color: #1F1F1F; /* Dark background for contrast */
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    .transformers-header {
+        background-color: #1F1F1F; /* Dark background for contrast */
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+    }
     </style>
     """, unsafe_allow_html=True)
 
