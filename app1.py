@@ -49,7 +49,7 @@ st.markdown("""
             padding: 10px;
         }
         h1 {
-            color: darkblue;
+            color: orange;
             text-align: center;
             font-size: 3rem;
         }
